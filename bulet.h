@@ -1,13 +1,21 @@
-#ifndef SLIME_H
-#define SLIME_H
+#ifndef BULET_H
+#define BULET_H
 #include "objects.h"
 #include <SFML/Graphics.hpp>
 
 
-//Этот враг максимально простой. Ходит влево/вправо, при соударении о стенку меняет направление.
-class Slime : public Object
+//Для правильности работы этого объекта противник, который его использует должен задать начальные скорости и направление.
+class Bulet : public Object
 {
+
+private:
+
+
+
 public:
+    bool life;
+
+
     enum Direction
     {
         UP = 1,
@@ -25,18 +33,20 @@ public:
     bool ON_GROUND;
 
     virtual void draw(sf::RenderWindow &window);
-    int CheckWall(Map& map, float Dx, float Dy);
 
-    void motion(int a);
+    bool IsWall();
 
-    Slime(const std::string name_file,
+    void motion();
+
+
+    Bulet(const std::string name_file,
          const float obj_size_x,
          const float obj_size_y,
          int pos_x, int pos_y);
 
-    Slime(const Slime &) = delete;
+    //Bulet(const Bulet &) = delete;
 
-    void update(float time, Map& map);
+    void update(float time, sf::RenderWindow &window);
 };
 
 #endif
