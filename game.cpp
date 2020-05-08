@@ -8,48 +8,55 @@ Game::Game() :
                event_game(sf::Event()),
                clock_game(sf::Clock())
 {
-    Background.loadFromFile("maxresdefault.jpg");
+    Background.loadFromFile("background1.png");
     sprite_background.setTexture(Background);
 }
 
 void Game::run()
 {
-    Hero hero("Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 0, GROUND$);
-    //Skeleton skelet("idle.png", 125, 210, 600, GROUND$);
-    //Slime slime("117687.png", 130, 130, 800, GROUND$+105);
+	Hero hero("Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 0, GROUND$);
+	//Skeleton skelet("idle.png", 125, 210, 600, GROUND$);
+	//Slime slime("117687.png", 130, 130, 800, GROUND$+105);
 
-    while (window.isOpen())
-    {
-        this->time_game = clock_game.getElapsedTime().asMicroseconds();
-        this->clock_game.restart();
+	//view.reset(sf::FloatRect(0, 0, 1280, 720));
+	Map map;
 
-        this->time_game = this->time_game / 1000;
+	while (window.isOpen())
+	{
+		this->time_game = clock_game.getElapsedTime().asMicroseconds();
+		this->clock_game.restart();
 
-        if (this->time_game > 20)
-            this->time_game = 20;
+		this->time_game = this->time_game / 1000;
 
-        window.clear();
-        window.pollEvent(event_game);
+		if (this->time_game > 20)
+			this->time_game = 20;
 
-        //if (event_game.type == sf::Event::Closed)
-          //window.close();
-        // The escape key was pressed
-        //if ((event_game.type == sf::Event::KeyPressed) && (event_game.key.code == sf::Keyboard::Escape))
-            //window.close();
+		window.clear();
+		window.pollEvent(event_game);
 
-        hero.motion();
-        //slime.motion();
+		//if (event_game.type == sf::Event::Closed)
+		//window.close();
+		// The escape key was pressed
+		//if ((event_game.type == sf::Event::KeyPressed) && (event_game.key.code == sf::Keyboard::Escape))
+		//window.close();
 
 
-        hero.update(time_game);
-        //slime.update(time_game);
-        //skelet.update(time_game, window, hero.pos_obj);
+		hero.motion();
+		//slime.motion();
 
-        window.draw(sprite_background);
-        //skelet.draw(window);   //Порядок важен!
-        //slime.draw(window);
-        hero.draw(window);
 
-        window.display();
-    }
+		hero.update(time_game);
+		//slime.update(time_game);
+		//skelet.update(time_game, window, hero.pos_obj);
+
+		window.draw(sprite_background);
+		//skelet.draw(window);   //Порядок важен!
+		//slime.draw(window);
+		
+		map.draw(window);
+		
+		hero.draw(window);
+
+		window.display();
+	}
 }
