@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <list>
-
+#include "map.h"
 
 #define GROUND$ 515
 
