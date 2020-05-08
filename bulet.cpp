@@ -1,6 +1,4 @@
 #include "bulet.h"
-#include "objects.h"
-
  
 Bulet::Bulet(const std::string name_file,
             const float obj_size_x,

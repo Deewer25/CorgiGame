@@ -6,6 +6,7 @@
 #include <iostream>
 #include <list>
 #include "map.h"
+#include <SFML/Graphics.hpp>
 
 #define GROUND$ 515
 

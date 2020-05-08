@@ -31,8 +31,6 @@ public:
 	Map();
 	~Map();
 	void draw(sf::RenderWindow &window);
-
-
 };
 
 

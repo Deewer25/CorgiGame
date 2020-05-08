@@ -51,9 +51,11 @@ public:
          const float obj_size_y,
          int pos_x, int pos_y);
 
-    Hero(const Hero &) = delete;
+    void CheckMap(Map &map, float Dx, float Dy); //ф-ция взаимодействия с картой
 
-    void update(float time);
+    Hero(const Hero&) = delete;
+
+    void update(float time, Map& map);
 };
 
 

@@ -105,16 +105,19 @@ void Hero::draw(sf::RenderWindow &window)
     window.draw(this->obj_sprite);
 }
 
-void Hero::update(float time)
+void Hero::update(float time, Map& map)
 {
 
     this->pos_obj.x += this->velocity_obj.x * time;
+    CheckMap(map, velocity_obj.x, 0);
 
     if (!this->ON_GROUND)
         this->velocity_obj.y = this->velocity_obj.y + 0.0005 * time;
 
     this->pos_obj.y += this->velocity_obj.y * time;
     this->ON_GROUND = false;
+
+    CheckMap(map, 0, velocity_obj.y);
 
     if (this->pos_obj.y > GROUND$)
     {
@@ -205,4 +208,42 @@ void Hero::update(float time)
     }
 
     this->velocity_obj.x = 0;
+}
+
+void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодействия с картой
+{
+    float w = this->size_obj.x;
+    float h = this->size_obj.y;
+
+    float x = this->pos_obj.x;
+    float y = this->pos_obj.y;
+
+    for (int i = y / 70; i < (y + h) / 70; i++) //проходимся по элементам карты
+    {
+        for (int j = x / 70; j < (x + w) / 70; j++)
+        {
+            if (map.TileMap[i][j] == '1' || map.TileMap[i][j] == '2' || map.TileMap[i][j] == '3' || map.TileMap[i][j] == '4' || map.TileMap[i][j] == '5')
+            {
+                if (Dy > 0)
+                {
+                    this->pos_obj.y = i * 70 - h;
+                    velocity_obj.y = 0;
+                    ON_GROUND = true;
+                }
+                if (Dy < 0)
+                {
+                    this->pos_obj.y = i * 70 + 70;
+                    velocity_obj.y = 0;
+                }
+                if (Dx > 0)
+                {
+                    this->pos_obj.x = j * 70 - w;
+                } //с правым краем карты
+                if (Dx < 0)
+                {
+                    this->pos_obj.x = j * 70 + 70;
+                } // с левым краем карты
+            }     //else {ON_GROUND = false;}
+        }
+    }
 }

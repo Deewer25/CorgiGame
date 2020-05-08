@@ -1,8 +1,4 @@
 #include "skeleton.h"
-#include "objects.h"
-#include "bulet.h"
-#include <cmath>
-
 
 
 
