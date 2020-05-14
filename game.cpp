@@ -22,7 +22,8 @@ void Game::run()
 	Skeleton skelet("idle.png", 125, 210, 600, GROUND$);
 	//Slime slime("117687.png", 130, 130, 0, GROUND$+105);
 
-	//view.reset(sf::FloatRect(0, 0, 1280, 720));
+//	View view;
+//	view.reset(sf::FloatRect(0, 0, 1280, 720));
 	Map map;
 
 	while (window.isOpen())
@@ -35,6 +36,7 @@ void Game::run()
 		if (this->time_game > 20)
 			this->time_game = 20;
 
+//		window.setView(view);
 		window.clear();
 		window.pollEvent(event_game);
 
@@ -49,14 +51,14 @@ void Game::run()
 		//slime.motion();
 
 
-		hero.update(time_game);
-		//slime.update(time_game, map);
-		//skelet.update(time_game, window, hero.pos_obj);
+		hero.update(time_game, map);
+		slime.update(time_game, map);
+		skelet.update(time_game, window, hero.pos_obj);
 
 		window.draw(sprite_background);
 		map.draw(window);
-		//skelet.draw(window);   //Порядок важен!
-		//slime.draw(window);
+		skelet.draw(window);   //Порядок важен!
+		slime.draw(window);
 		
 		
 		hero.draw(window);

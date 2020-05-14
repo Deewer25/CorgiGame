@@ -1,10 +1,9 @@
 #ifndef SKELETON_H
 #define SKELETON_H
-#include "objects.h"
-#include <SFML/Graphics.hpp>
-#include <list>
-#include "bulet.h"
 
+#include <list>
+#include <cmath>
+#include "bulet.h"
 
 class Skeleton : public Object
 {

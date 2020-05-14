@@ -1,7 +1,6 @@
 #ifndef SLIME_H
 #define SLIME_H
 #include "objects.h"
-#include <SFML/Graphics.hpp>
 
 
 //Этот враг максимально простой. Ходит влево/вправо, при соударении о стенку меняет направление.
