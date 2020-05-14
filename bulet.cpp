@@ -1,5 +1,5 @@
 #include "bulet.h"
-#include "objects.h"
+
 
  
 Bulet::Bulet(const std::string name_file,

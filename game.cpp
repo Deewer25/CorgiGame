@@ -1,7 +1,7 @@
 #include "game.h"
 #include "slime.h"
 #include "skeleton.h"
-
+#include "bulet.h"
 
 
 Game::Game() :
@@ -19,7 +19,7 @@ Game::Game() :
 void Game::run()
 {
 	Hero hero("Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 0, GROUND$);
-	//Skeleton skelet("idle.png", 125, 210, 600, GROUND$);
+	Skeleton skelet("idle.png", 125, 210, 600, GROUND$);
 	//Slime slime("117687.png", 130, 130, 0, GROUND$+105);
 
 	//view.reset(sf::FloatRect(0, 0, 1280, 720));
