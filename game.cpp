@@ -18,6 +18,8 @@ void Game::pause()
 {	
 }
 //AAAAAAAAAA
+
+
 void Game::run()
 {
 	Menu MENU;
