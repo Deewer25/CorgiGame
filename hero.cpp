@@ -1,4 +1,5 @@
 #include "hero.h"
+#include "view.h"
 
 Hero::Hero(const std::string name_file,
            const float obj_size_x,
@@ -10,7 +11,9 @@ Hero::Hero(const std::string name_file,
                                    previous_direction(RIGHT),
                                    ON_GROUND(true),
                                    COOLDOWN_INVINCIBLE(sf::seconds(3.0))
-{}
+{
+	view.reset(sf::FloatRect(0, 0, 1280, 720));
+}
 
 void Hero::motion()
 {
@@ -28,7 +31,7 @@ void Hero::motion()
     {
         if (this->ON_GROUND)
         {
-            this->velocity_obj.y = -0.35;
+            this->velocity_obj.y = -0.55;
             this->ON_GROUND = false;
             //hero.current_direction = Hero::JUMP_UP;
         }
@@ -102,6 +105,8 @@ void Hero::draw(sf::RenderWindow &window)
     default:
         break;
     }
+    ChangeView(this->pos_obj.x, this->pos_obj.y);
+    window.setView(view);
     window.draw(this->obj_sprite);
 }
 

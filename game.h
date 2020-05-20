@@ -3,6 +3,7 @@
 
 
 #include "hero.h"
+//#include "view.h"
 #include "slime.h"
 #include "skeleton.h"
 #include "menu.h"
