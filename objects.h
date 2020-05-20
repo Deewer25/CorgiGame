@@ -36,6 +36,8 @@ public:
            int pos_x, int pos_y);
 
     virtual void draw(sf::RenderWindow &window) = 0;
+
+    sf::FloatRect getRect();
 };
 
 #endif

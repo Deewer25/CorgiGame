@@ -36,7 +36,7 @@ public:
     //Вааажно подумать над этим!!!
 
     virtual void draw(sf::RenderWindow &window/*,  const sf::Vector2f& hero_pos */);
-    bool CheckWall();
+    bool CheckWall(Map& map, float Dx, float Dy);
 
 
 
@@ -55,7 +55,7 @@ public:
 
     Skeleton(const Skeleton &) = delete;
 
-    void update(float time, sf::RenderWindow &window, const sf::Vector2f& hero_pos);
+    void update(float time, sf::RenderWindow &window, const sf::Vector2f& hero_pos, Map& map);
 };
 
 #endif

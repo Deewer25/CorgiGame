@@ -13,6 +13,7 @@ Slime::Slime(const std::string name_file,
         {
             current_direction = RIGHT;
             velocity_obj.x = 0.1;
+            acceleration_obj.y = 0.0005;
         }
 
 
@@ -20,9 +21,9 @@ Slime::Slime(const std::string name_file,
 void Slime::draw(sf::RenderWindow &window)
 {
     if (this->current_direction == RIGHT)
-        this->obj_sprite.setTextureRect(sf::IntRect(0, 0, 125, 210));
+        this->obj_sprite.setTextureRect(sf::IntRect(17, 23, 83, 80));
     if (this->current_direction == LEFT)
-        this->obj_sprite.setTextureRect(sf::IntRect(125, 0, -125, 210));
+        this->obj_sprite.setTextureRect(sf::IntRect(100, 23, -83, 80));
     window.draw(this->obj_sprite);
 }
 
@@ -48,8 +49,20 @@ void Slime::motion(int a)
 
 void Slime::update(float time, Map& map){
     this->pos_obj.x += this->velocity_obj.x * time;
-    int a = CheckWall(map, 0, this->velocity_obj.y);
+    int a = CheckWall(map, this->velocity_obj.x, 0);
     motion(a);
+
+
+    if (!this->ON_GROUND)
+        this->velocity_obj.y = this->velocity_obj.y + acceleration_obj.y * time;
+
+    this->pos_obj.y += this->velocity_obj.y * time;
+    this->ON_GROUND = false;
+
+    a = CheckWall(map, 0, this->velocity_obj.y);
+    
+    motion(a);
+
     currentFrame += 0.005 * time;
 
     if (currentFrame > 4)  //fix this + spritesheet @TODO 
@@ -62,11 +75,12 @@ void Slime::update(float time, Map& map){
 
 
 int Slime::CheckWall(Map& map, float Dx, float Dy){
-     float w = this->size_obj.x;
+        float w = this->size_obj.x;
         float h = this->size_obj.y;
 
         float x = this->pos_obj.x;
         float y = this->pos_obj.y;
+
 
 
 
@@ -79,6 +93,11 @@ int Slime::CheckWall(Map& map, float Dx, float Dy){
                     this->pos_obj.y = i * 70 - h;  
                     velocity_obj.y = 0; 
                     ON_GROUND = true; 
+                }
+                if (Dy < 0)
+                {
+                    this->pos_obj.y = i * 70 + 70;
+                    velocity_obj.y = 0;
                 }
 			    
 				if (Dx > 0){
@@ -93,10 +112,6 @@ int Slime::CheckWall(Map& map, float Dx, float Dy){
 		}
  
 
-			    /* if (TileMap[i][j] == 's') { //если символ равен 's' (камень)
-				    x = 300; y = 300;//какое то действие... например телепортация героя
-				    TileMap[i][j] = ' ';//убираем камень, типа взяли бонус. можем и не убирать, кстати.
-			    } */
 	return 0;
         
 	

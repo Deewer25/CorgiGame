@@ -15,18 +15,26 @@ Bulet::Bulet(const std::string name_file,
             
                         
             life = true;
-            current_direction = STAY;
+            current_direction = RIGHT;
             acceleration_obj = {0, 0.0005};
             //velocity_obj = {0.3, -0.3};
             //velocity_obj.x = 0;
             //velocity_obj.y = 0;
         }
 
+/* Bulet::Bulet(const Bulet& that)
+{
+    pos_obj = that.pos_obj;
+    velocity_obj = that.velocity_obj;
+    obj_sprite = that.obj_sprite;
+} */
+
 
 void Bulet::draw(sf::RenderWindow &window)
 {
     if(life){
         if(current_direction == LEFT){
+            
             this->obj_sprite.setTextureRect(sf::IntRect(0, 0, 95, 87));
         }
         if(current_direction == RIGHT){
@@ -45,7 +53,7 @@ void Bulet::motion()
 }
 
 
-void Bulet::update(float time, sf::RenderWindow &window){
+void Bulet::update(float time, sf::RenderWindow &window, Map& map){
     this->pos_obj.x += this->velocity_obj.x * time;
 
     if (!this->ON_GROUND)
@@ -63,7 +71,7 @@ void Bulet::update(float time, sf::RenderWindow &window){
         this->velocity_obj.y = 0;
         this->ON_GROUND = true;
     } */
-    IsWall();
+    CheckWall(map);
     currentFrame += 0.005 * time;
 
     if (currentFrame > 4)  //fix this + spritesheet @TODO 
@@ -78,13 +86,43 @@ void Bulet::update(float time, sf::RenderWindow &window){
 }
 
 
-bool Bulet::IsWall(){
-    if (pos_obj.y > GROUND$){
+bool Bulet::CheckWall(Map& map){
+        float w = this->size_obj.x;
+        float h = this->size_obj.y;
+
+        float x = this->pos_obj.x;
+        float y = this->pos_obj.y;
+
+
+
+
+		for (int i = y / 70; i < (y + h) / 70; i++)//проходимся по элементам карты
+		for (int j = x / 70; j < (x + w) / 70; j++)
+		{
+			if (map.TileMap[i][j] != ' '|| map.TileMap[i][j] == 'G')
+			{
+                life = false;
+            }
+
+        }
+
+    /* if (pos_obj.y > GROUND$){
         velocity_obj = {0, 0};
         pos_obj.y = GROUND$;
         this->ON_GROUND = true;
         life = false;
         return 1;
-    }
+    } */
     return 0;
+}
+
+
+
+
+
+void Bulet::CheckHero(Hero& hero){
+    if(this->getRect().intersects(hero.getRect())){
+        this->life = false;
+        
+    }
 }

@@ -20,3 +20,7 @@ Object::Object(const std::string name_file,
             obj_sprite.setTextureRect(sf::IntRect(0, 0, obj_size_x, obj_size_y));
             obj_sprite.setPosition(pos_obj.x, pos_obj.y);
         }
+
+    sf::FloatRect Object::getRect(){
+		return sf::FloatRect(pos_obj.x, pos_obj.y, size_obj.x, size_obj.y);
+	}
