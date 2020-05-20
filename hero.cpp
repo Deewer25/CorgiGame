@@ -5,18 +5,29 @@ Hero::Hero(const std::string name_file,
            const float obj_size_x,
            const float obj_size_y,
            int pos_x, int pos_y) :
-
-                                   Object(name_file, obj_size_x, obj_size_y, pos_x, pos_y),
-                                   currentFrame(0.0),
-                                   previous_direction(RIGHT),
-                                   ON_GROUND(true),
-                                   COOLDOWN_INVINCIBLE(sf::seconds(3.0))
+    Object(name_file, obj_size_x, obj_size_y, pos_x, pos_y),
+    currentFrame(0.0),
+    previous_direction(RIGHT),
+    ON_GROUND(true),
+    COOLDOWN_INVINCIBLE(sf::seconds(3.0)),
+    hit_points(3),
+    hearts_sprite(sf::Sprite()),
+    texture_hearts(sf::Texture())
 {
-	view.reset(sf::FloatRect(0, 0, 1280, 720));
+    acceleration_obj.y = 0.001;
+    texture_hearts.loadFromFile("tilemap1.png");
+    hearts_sprite.setTexture(texture_hearts);
+    hearts_sprite.setTextureRect(sf::IntRect(420, 0, 70, 70));
+    hearts_sprite.setPosition(640-70, 0);
+    view.reset(sf::FloatRect(0, 0, 1280, 720));
 }
 
 void Hero::motion()
-{
+{   
+    if(this->hit_points <= 0)
+    {
+        return;
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         this->velocity_obj.x = -0.1;
@@ -107,17 +118,46 @@ void Hero::draw(sf::RenderWindow &window)
     }
     ChangeView(this->pos_obj.x, this->pos_obj.y);
     window.setView(view);
+
+    switch(this->hit_points)
+    {
+        case 0:
+            break;
+        case 1:
+            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
+            window.draw(hearts_sprite);
+            break;
+        case 2:
+            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
+            window.draw(hearts_sprite);
+            hearts_sprite.setPosition(view.getCenter().x + 370, view.getCenter().y - 100);
+            window.draw(hearts_sprite);
+            break;
+        case 3:
+            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
+            window.draw(hearts_sprite);
+            hearts_sprite.setPosition(view.getCenter().x + 370, view.getCenter().y - 100);
+            window.draw(hearts_sprite);
+            hearts_sprite.setPosition(view.getCenter().x + 440, view.getCenter().y - 100);
+            window.draw(hearts_sprite);
+            break;
+    }
     window.draw(this->obj_sprite);
 }
 
 void Hero::update(float time, Map& map)
 {
+    if (this->hit_points <= 0)
+    {
+        this->current_direction = GAME_OVER;
+        return;
+    }
 
     this->pos_obj.x += this->velocity_obj.x * time;
     CheckMap(map, velocity_obj.x, 0);
 
     if (!this->ON_GROUND)
-        this->velocity_obj.y = this->velocity_obj.y + 0.0005 * time;
+        this->velocity_obj.y = this->velocity_obj.y + acceleration_obj.y * time;
 
     this->pos_obj.y += this->velocity_obj.y * time;
     this->ON_GROUND = false;
@@ -139,6 +179,7 @@ void Hero::update(float time, Map& map)
     this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y);
 
     this->previous_direction_2 = this->current_direction;
+
 
     if (this->current_direction == LEFT || this->current_direction == RIGHT)
     {
@@ -212,6 +253,21 @@ void Hero::update(float time, Map& map)
         }
     }
 
+    if(this->hit_points < this->hit_points_previous)
+    {
+        if(this->current_direction == RIGHT)
+        {
+            this->current_direction = GOT_HIT_RIGHT;
+        }
+        else
+        {
+            this->current_direction = GOT_HIT_LEFT;
+        }
+        this->hit_points_previous = this->hit_points;
+    }
+
+    // ДОБАВИТЬ ПРОВЕРКУ ХП + ИЗМЕНИТЬ СПРАЙТ ЛЯ ЭТГО
+
     this->velocity_obj.x = 0;
 }
 
@@ -251,4 +307,9 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
             }     //else {ON_GROUND = false;}
         }
     }
+}
+
+sf::Vector2f Hero::get_pos_camera()
+{
+    return view.getCenter();
 }

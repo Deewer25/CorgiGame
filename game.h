@@ -19,7 +19,7 @@ public:
     float time_game;
 
     Game();
-
+    void background_motion(sf::Vector2f pos_camera);
     void run();
     void pause();
 

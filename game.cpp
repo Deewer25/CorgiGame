@@ -15,10 +15,19 @@ Game::Game() :
 
 
 void Game::pause()
-{	
+{
+	while (1)
+	{
+		window.pollEvent(event_game);
+		if((event_game.type == sf::Event::KeyPressed))
+			break;
+	};
 }
-//AAAAAAAAAA
 
+void Game::background_motion(sf::Vector2f pos_camera)
+{
+	this->sprite_background.setPosition(pos_camera.x - 650, pos_camera.y - 350);
+}
 
 void Game::run()
 {
@@ -51,12 +60,13 @@ void Game::run()
 		//if (event_game.type == sf::Event::Closed)
 		//window.close();
 		// The escape key was pressed
-		//if ((event_game.type == sf::Event::KeyPressed) && (event_game.key.code == sf::Keyboard::Escape))
-		//window.close();
+		if ((event_game.type == sf::Event::KeyPressed) && (event_game.key.code == sf::Keyboard::Escape))
+			pause();
 
 
 		hero.motion();
 		//slime.motion();
+		background_motion(hero.get_pos_camera());
 
 
 		hero.update(time_game, map);

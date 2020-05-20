@@ -106,10 +106,7 @@ void Skeleton::fire(const sf::Vector2f& hero_pos){
         //ТУТ ФИЗИКА
         //my_bulet.velocity_obj.y = - (((x_0 * my_bulet.acceleration_obj.y)/my_bulet.velocity_obj.x) - (my_bulet.velocity_obj.x * y_0)/x_0);
 
-       
         bullets.push_back(my_bulet); //Пулю надо убрать в проверке касания со стенами?
-
-        
     }
 
     if(bullets.size() != 0){

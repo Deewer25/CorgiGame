@@ -86,3 +86,12 @@ bool Bulet::IsWall(){
     }
     return 0;
 }
+
+/*
+Bulet::Bulet(const Bulet& that)
+{
+    pos_obj = that.pos_obj;
+    velocity_obj = that.velocity_obj;
+    obj_sprite = that.obj_sprite;
+}
+*/
