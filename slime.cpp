@@ -1,5 +1,5 @@
 #include "slime.h"
-//#include "objects.h"
+
 
 Slime::Slime(const std::string name_file,
             const float obj_size_x,

@@ -1,7 +1,6 @@
 #ifndef BULET_H
 #define BULET_H
 #include "objects.h"
-#include <SFML/Graphics.hpp>
 
 
 //Для правильности работы этого объекта противник, который его использует должен задать начальные скорости и направление.

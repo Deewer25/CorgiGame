@@ -5,7 +5,7 @@
 #include "hero.h"
 #include "slime.h"
 #include "skeleton.h"
-
+#include "menu.h"
 
 class Game
 {
@@ -20,6 +20,7 @@ public:
     Game();
 
     void run();
+    void pause();
 
     Game(const Game &) = delete;
 };
