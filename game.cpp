@@ -16,6 +16,7 @@ Game::Game() :
 
 void Game::pause()
 {	
+	
 }
 
 void Game::run()
