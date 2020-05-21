@@ -14,7 +14,7 @@ Hero::Hero(const std::string name_file,
     hearts_sprite(sf::Sprite()),
     texture_hearts(sf::Texture())
 {
-    acceleration_obj.y = 0.001;
+    acceleration_obj.y = 0.0005;
     texture_hearts.loadFromFile("tilemap1.png");
     hearts_sprite.setTexture(texture_hearts);
     hearts_sprite.setTextureRect(sf::IntRect(420, 0, 70, 70));
@@ -30,12 +30,12 @@ void Hero::motion()
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        this->velocity_obj.x = -0.1;
+        this->velocity_obj.x = -0.2;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        this->velocity_obj.x = 0.1;
+        this->velocity_obj.x = 0.2;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -54,12 +54,12 @@ void Hero::motion()
         if (this->previous_direction_2 > 7)
         {
             this->current_direction = INVINCIBLE_RIGHT;
-            this->velocity_obj.x = 1.0;
+            this->velocity_obj.x = 2.0;
         }
         else
         {
             this->current_direction = INVINCIBLE_LEFT;
-            this->velocity_obj.x = -1.0;
+            this->velocity_obj.x = -2.0;
         }
     }
 }

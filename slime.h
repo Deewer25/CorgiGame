@@ -1,6 +1,6 @@
 #ifndef SLIME_H
 #define SLIME_H
-#include "objects.h"
+#include "hero.h"
 
 
 //Этот враг максимально простой. Ходит влево/вправо, при соударении о стенку меняет направление.
@@ -24,7 +24,9 @@ public:
     bool ON_GROUND;
 
     virtual void draw(sf::RenderWindow &window);
+
     int CheckWall(Map& map, float Dx, float Dy);
+    void CheckHero(Hero& hero);
 
     void motion(int a);
 

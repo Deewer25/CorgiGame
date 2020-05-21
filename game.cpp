@@ -33,13 +33,13 @@ void Game::background_motion(sf::Vector2f pos_camera)
 
 void Game::run()
 {
-	Menu MENU;
+	//Menu MENU;
 
-	MENU.menu(window);
+	//MENU.menu(window);
 
 
 	Hero hero("Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 0, GROUND$);
-	Skeleton skelet("idle.png", 125, 200, 600, GROUND$);
+	Skeleton skelet("idle.png", 125, 200, 900, GROUND$);
 	//Bulet slime("bullet.png", 83, 80, 0, GROUND$);
 
 
@@ -74,7 +74,7 @@ void Game::run()
 
 		hero.update(time_game, map);
 		//slime.update(time_game, map);
-		skelet.update(time_game, window, hero.pos_obj, map);
+		skelet.update(time_game, window, hero, map);
 		
 		
 		

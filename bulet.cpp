@@ -53,7 +53,7 @@ void Bulet::motion()
 }
 
 
-void Bulet::update(float time, sf::RenderWindow &window, Map& map){
+void Bulet::update(float time, sf::RenderWindow &window, Map& map, Hero& hero){
     this->pos_obj.x += this->velocity_obj.x * time;
 
     if (!this->ON_GROUND)
@@ -72,6 +72,7 @@ void Bulet::update(float time, sf::RenderWindow &window, Map& map){
         this->ON_GROUND = true;
     } */
     CheckWall(map);
+    CheckHero(hero);
     currentFrame += 0.005 * time;
 
     if (currentFrame > 4)  //fix this + spritesheet @TODO 
@@ -123,6 +124,7 @@ bool Bulet::CheckWall(Map& map){
 void Bulet::CheckHero(Hero& hero){
     if(this->getRect().intersects(hero.getRect())){
         this->life = false;
-        
+        hero.hit_points--;
+        hero.velocity_obj.y = -0.35; //подумать чтобы отбрасывало в сторону а не только вверх;
     }
 }
