@@ -106,11 +106,15 @@ bool Bulet::CheckWall(Map& map){
 
         }
 
+///asasd
+
+
     /* if (pos_obj.y > GROUND$){
         velocity_obj = {0, 0};
         pos_obj.y = GROUND$;
         this->ON_GROUND = true;
-        life = false;
+        life = false;   
+        life = false;   
         return 1;
     } */
     return 0;
