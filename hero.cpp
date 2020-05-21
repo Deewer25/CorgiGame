@@ -124,21 +124,21 @@ void Hero::draw(sf::RenderWindow &window)
         case 0:
             break;
         case 1:
-            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
+            hearts_sprite.setPosition(view.getCenter().x - 650, view.getCenter().y - 330);
             window.draw(hearts_sprite);
             break;
         case 2:
-            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
+            hearts_sprite.setPosition(view.getCenter().x -650, view.getCenter().y - 330);
             window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x + 370, view.getCenter().y - 100);
+            hearts_sprite.setPosition(view.getCenter().x - 650 + 70, view.getCenter().y - 330);
             window.draw(hearts_sprite);
             break;
         case 3:
-            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
+            hearts_sprite.setPosition(view.getCenter().x - 650 + 70, view.getCenter().y - 330);
             window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x + 370, view.getCenter().y - 100);
+            hearts_sprite.setPosition(view.getCenter().x - 650 + 70 + 70, view.getCenter().y - 330);
             window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x + 440, view.getCenter().y - 100);
+            hearts_sprite.setPosition(view.getCenter().x - 650 + 70 + 70 + 70, view.getCenter().y - 330);
             window.draw(hearts_sprite);
             break;
     }
