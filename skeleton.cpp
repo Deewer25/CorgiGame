@@ -1,5 +1,5 @@
 #include "skeleton.h"
-#include <cmath>
+
 
 
 
@@ -52,7 +52,7 @@ void Skeleton::motion(){
 
 }
 
-void Skeleton::update(float time, sf::RenderWindow &window, const sf::Vector2f& hero_pos, Map& map){
+void Skeleton::update(float time, sf::RenderWindow &window, Hero& hero, Map& map){
     this->pos_obj.x += this->velocity_obj.x * time;
     CheckWall(map, this->velocity_obj.x, 0);
     
@@ -62,12 +62,12 @@ void Skeleton::update(float time, sf::RenderWindow &window, const sf::Vector2f& 
     this->pos_obj.y += this->velocity_obj.y * time;
     this->ON_GROUND = false;
     CheckWall(map, 0, this->velocity_obj.y);
-    current_direction = IsHeroNear(hero_pos);
+    current_direction = IsHeroNear(hero);
     draw(window);
-    fire(hero_pos);
+    fire(hero);
 
     if(bullets.size() != 0){
-        bullets.front().update(time, window, map);
+        bullets.front().update(time, window, map, hero);
     }
 
     this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y);
@@ -83,8 +83,8 @@ void Skeleton::update(float time, sf::RenderWindow &window, const sf::Vector2f& 
     //this->velocity_obj.x = 0;
 }
 
-int Skeleton::IsHeroNear(const sf::Vector2f& hero_pos){
-    float dist = hero_pos.x - pos_obj.x;
+int Skeleton::IsHeroNear(Hero& hero){
+    float dist = hero.pos_obj.x - pos_obj.x;
 
     if (abs(dist) < 1000){
         if (dist > 0){
@@ -101,13 +101,13 @@ int Skeleton::IsHeroNear(const sf::Vector2f& hero_pos){
 
 
 //ПРОВЕРИТЬ FIRE, А ТАК ЖЕ РАЗОБРАТЬСЯ С КОМЕНТАРИЕМ ПУЛИ
-void Skeleton::fire(const sf::Vector2f& hero_pos){
+void Skeleton::fire(Hero& hero){
     Bulet* my_bulet = new Bulet("bullet.png", 95, 87, pos_obj.x, pos_obj.y);
 
-    if (bullets.size() == 0 && IsHeroNear(hero_pos)){
+    if (bullets.size() == 0 && IsHeroNear(hero)){
         float y_0, x_0;
-        x_0 = hero_pos.x - pos_obj.x;
-        y_0 = hero_pos.y - pos_obj.y;
+        x_0 = hero.pos_obj.x - pos_obj.x;
+        y_0 = hero.pos_obj.y - pos_obj.y;
 
         
         
@@ -187,4 +187,13 @@ bool Skeleton::CheckWall(Map& map, float Dx, float Dy){
 	return 0;
         
 	
+}
+
+
+
+void Skeleton::CheckHero(Hero& hero){
+    if(this->getRect().intersects(hero.getRect())){
+        hero.hit_points--;
+        hero.velocity_obj.y = -0.35; //подумать чтобы отбрасывало в сторону а не только вверх;
+    }
 }

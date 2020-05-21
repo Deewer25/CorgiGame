@@ -1,8 +1,6 @@
 #ifndef BULET_H
 #define BULET_H
-#include "objects.h"
-#include <SFML/Graphics.hpp>
-#include "hero.h";
+#include "hero.h"
 
 //Для правильности работы этого объекта противник, который его использует должен задать начальные скорости и направление.
 class Bulet : public Object
@@ -47,7 +45,7 @@ public:
 
     //Bulet(const Bulet& that);
 
-    void update(float time, sf::RenderWindow &window, Map& map);
+    void update(float time, sf::RenderWindow &window, Map& map, Hero& hero);
 };
 
 #endif
