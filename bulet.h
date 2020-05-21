@@ -32,15 +32,12 @@ public:
 
     virtual void draw(sf::RenderWindow &window);
 
-
     void motion();
 
-
-    Bulet(const std::string name_file,
-         const float obj_size_x,
-         const float obj_size_y,
-         int pos_x, int pos_y);
-
+        Bulet(const std::string name_file,
+              const float obj_size_x,
+              const float obj_size_y,
+              int pos_x, int pos_y);
 
     void update(float time, sf::RenderWindow &window);
 };
