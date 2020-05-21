@@ -17,7 +17,7 @@ Hero::Hero(const std::string name_file,
     acceleration_obj.y = 0.0005;
     texture_hearts.loadFromFile("tilemap1.png");
     hearts_sprite.setTexture(texture_hearts);
-    hearts_sprite.setTextureRect(sf::IntRect(420, 0, 70, 70));
+    hearts_sprite.setTextureRect(sf::IntRect(490, 490, 70, 70));
     hearts_sprite.setPosition(640-70, 0);
     view.reset(sf::FloatRect(0, 0, 1280, 720));
 }
@@ -283,7 +283,7 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
     {
         for (int j = x / 70; j < (x + w) / 70; j++)
         {
-            if (map.TileMap[i][j] == '1' || map.TileMap[i][j] == '2' || map.TileMap[i][j] == '3' || map.TileMap[i][j] == '4' || map.TileMap[i][j] == '5')
+            if (map.TileMap[i][j] == '1' || map.TileMap[i][j] == '2' || map.TileMap[i][j] == '3' || map.TileMap[i][j] == '4' || map.TileMap[i][j] == '5' || map.TileMap[i][j] == '$' || map.TileMap[i][j] =='*')
             {
                 if (Dy > 0)
                 {
@@ -304,7 +304,46 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
                 {
                     this->pos_obj.x = j * 70 + 70;
                 } // с левым краем карты
-            }     //else {ON_GROUND = false;}
+            } //else {ON_GROUND = false;}
+	    
+	    //собираем монеты
+	    if (map.TileMap[i][j] == 'G')
+	    {
+		    map.TileMap[i][j] = ' ';
+	    }
+
+	    //дополнительные хп
+	    if (map.TileMap[i][j] == 'H')
+	    {
+		    if(this->hit_points < 3)
+		    {
+			    this->hit_points++;
+		    	    map.TileMap[i][j] = ' ';
+		    }
+	    }
+	    
+	    //бонусные ячейки
+	    if (map.TileMap[i][j] == '$')
+	    {
+		    map.TileMap[i][j] = 'M';
+	    }
+	    if (map.TileMap[i][j] == '*')
+	    {
+		    map.TileMap[i][j] = '!';
+	    }
+            //попадает на осколки
+            if (map.TileMap[i][j] == '~')
+            {
+                        this->hit_points--;
+        		this->velocity_obj.y = -0.35; 
+            }
+	    
+	    //попадает в лаву
+	    if (map.TileMap[i][j] == 'l')
+            {
+                        this->hit_points--;
+            }
+
         }
     }
 }

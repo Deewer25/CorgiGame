@@ -7,7 +7,7 @@
 #include <list>
 #include "map.h"
 
-#define GROUND$ 515
+#define GROUND$ 2335
 
 #define SIZE_PICT$ 0.4
 
