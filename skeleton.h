@@ -38,13 +38,13 @@ public:
     virtual void draw(sf::RenderWindow &window/*,  const sf::Vector2f& hero_pos */);
     bool CheckWall(Map& map, float Dx, float Dy);
 
+    void CheckHero(Hero& hero);
 
 
 
+    int IsHeroNear(Hero& hero);
 
-    int IsHeroNear(const sf::Vector2f& hero_pos);
-
-    void fire(const sf::Vector2f& hero_pos);
+    void fire(Hero& hero);
 
     void motion();
 
@@ -55,7 +55,7 @@ public:
 
     Skeleton(const Skeleton &) = delete;
 
-    void update(float time, sf::RenderWindow &window, const sf::Vector2f& hero_pos, Map& map);
+    void update(float time, sf::RenderWindow &window, Hero& hero, Map& map);
 };
 
 #endif

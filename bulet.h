@@ -1,6 +1,10 @@
 #ifndef BULET_H
 #define BULET_H
+<<<<<<< HEAD
 #include "objects.h"
+=======
+#include "hero.h"
+>>>>>>> brch
 
 //Для правильности работы этого объекта противник, который его использует должен задать начальные скорости и направление.
 class Bulet : public Object
@@ -39,7 +43,11 @@ public:
               const float obj_size_y,
               int pos_x, int pos_y);
 
+<<<<<<< HEAD
     void update(float time, sf::RenderWindow &window);
+=======
+    void update(float time, sf::RenderWindow &window, Map& map, Hero& hero);
+>>>>>>> brch
 };
 
 #endif

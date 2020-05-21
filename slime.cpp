@@ -116,3 +116,11 @@ int Slime::CheckWall(Map& map, float Dx, float Dy){
         
 	
 }
+
+
+void Slime::CheckHero(Hero& hero){
+    if(this->getRect().intersects(hero.getRect())){
+        hero.hit_points--;
+        hero.velocity_obj.y = -0.35; //подумать чтобы отбрасывало в сторону а не только вверх;
+    }
+}
