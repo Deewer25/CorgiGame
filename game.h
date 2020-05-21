@@ -6,7 +6,7 @@
 //#include "view.h"
 #include "slime.h"
 #include "skeleton.h"
-
+#include "menu.h"
 
 class Game
 {
@@ -19,8 +19,9 @@ public:
     float time_game;
 
     Game();
-
+    void background_motion(sf::Vector2f pos_camera);
     void run();
+    void pause();
 
     Game(const Game &) = delete;
 };

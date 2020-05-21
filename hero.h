@@ -29,11 +29,19 @@ public:
     short int previous_direction;
     short int previous_direction_2;
     short int current_direction;
+
+
+    short int hit_points;
+    short int hit_points_previous;
+
     int NUMBER_SLIDE;
     double currentFrame;
 
     bool ON_GROUND;
     bool ON_INVINCIBLE;
+
+    sf::Texture texture_hearts; //stdmap ; texture manager use??
+    sf::Sprite hearts_sprite;
 
     const sf::Time COOLDOWN_INVINCIBLE;
     sf::Time recent_click;
@@ -54,8 +62,9 @@ public:
     void CheckMap(Map &map, float Dx, float Dy); //ф-ция взаимодействия с картой
 
     Hero(const Hero&) = delete;
+    sf::Vector2f get_pos_camera();
 
-    void update(float time, Map& map);
+    void update(float time, Map &map);
 };
 
 
