@@ -11,7 +11,7 @@ public:
 	sf::Texture map;//текстура карты
 	sf::Sprite sprite_map;//создаём спрайт для карты
 	static const int HEIGHT_MAP = 37;//высота карты
-	const int WIDTH_MAP = 220;//ширина карты
+	const int WIDTH_MAP = 193;//ширина карты
 	sf::String TileMap[HEIGHT_MAP]={
  
         "                                                                                                                                                                                                ",
