@@ -125,10 +125,10 @@ void Skeleton::fire(Hero& hero){
        
        
         //ТУТ ФИЗИКА
-        if(x_0 == 0){
+        if(x_0 == 0.0){
             my_bulet->velocity_obj.y = 0;
         } else{
-            my_bulet->velocity_obj.y = -abs(((y_0 * my_bulet->velocity_obj.x * 2)/x_0) + ((my_bulet->acceleration_obj.y * x_0)/(2 * my_bulet->velocity_obj.x)));
+            my_bulet->velocity_obj.y = -fabs(((y_0 * my_bulet->velocity_obj.x * 2)/x_0) + ((my_bulet->acceleration_obj.y * x_0)/(2 * my_bulet->velocity_obj.x)));
             
         }
         //my_bulet.velocity_obj.y = ((y_0 * my_bulet.velocity_obj.x)/x_0) + ((my_bulet.acceleration_obj.y * x_0)/my_bulet.velocity_obj.x);
