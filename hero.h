@@ -33,6 +33,9 @@ public:
 
     short int hit_points;
     short int hit_points_previous;
+    short int keys;
+    int gold;
+
 
     int NUMBER_SLIDE;
     double currentFrame;

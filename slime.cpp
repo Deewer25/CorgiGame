@@ -12,7 +12,7 @@ Slime::Slime(const std::string name_file,
         ON_GROUND(true)
         {
             current_direction = RIGHT;
-            velocity_obj.x = 0.1;
+            velocity_obj.x = 0.2;
             acceleration_obj.y = 0.0005;
         }
 
@@ -35,12 +35,12 @@ void Slime::motion(int a)
     {
     case LEFT:
         current_direction = LEFT;
-        velocity_obj.x = -0.1;
+        velocity_obj.x = -0.2;
         break;
 
     case RIGHT:
         current_direction = RIGHT;
-        velocity_obj.x = 0.1;
+        velocity_obj.x = 0.2;
         break;
     
     }

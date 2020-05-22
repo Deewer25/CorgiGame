@@ -13,8 +13,8 @@ Game::Game() :
 {
     Background.loadFromFile("background1.png");
     sprite_background.setTexture(Background);
-	slimes_pos = {{2660, 2030}, {2100, 420}};
-	skel_pos = {{900, GROUND$}};
+	//slimes_pos = {{2660, 2030}, {2100, 420}};
+	//skel_pos = {{900, GROUND$}};
 }
 
 
@@ -40,6 +40,10 @@ void Game::background_motion(sf::Vector2f pos_camera)
 void Game::InitEnemy()
 {
 	/* for(int i = 0; i < 2; i++){
+		Slime* slime_supp = new Slime("117687.png", 83, 80, slimes_pos[i].x, slimes_pos[i].y);
+		Slimes.push_back(slime_supp);
+	} */
+	/* for(int i = 0; i < 2; i++){
 		Slimes.push_back(new Slime("117687.png", 83, 80, slimes_pos[i].x, slimes_pos[i].y));
 	} */
 
@@ -47,6 +51,7 @@ void Game::InitEnemy()
 		Skeletons.push_back(new Skeleton("idle.png", 125, 200, i.x, i.y));
 	} */
 }
+
 
 void Game::KillEnemy(){
 	/* for(auto i : Slimes){
@@ -64,10 +69,10 @@ void Game::run()
 
 	//MENU.menu(window);
 	
-	InitEnemy();
+	//InitEnemy();
 
 	Hero hero("Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 0, GROUND$);
-	//Skeleton skelet("idle.png", 125, 200, 900, GROUND$);
+	Skeleton skelet("idle.png", 125, 200, 3080, 1120);
 	//Slime slime1("117687.png", 83, 80, 2660, 2030);
 	//Slime slime2("117687.png", 83, 80, 1000, GROUND$);
 	
@@ -89,7 +94,7 @@ void Game::run()
 		window.clear();
 		window.pollEvent(event_game);
 		window.draw(sprite_background);
-		
+
 		//if (event_game.type == sf::Event::Closed)
 		//window.close();
 		// The escape key was pressed
@@ -106,7 +111,7 @@ void Game::run()
 
 		/* for(auto i : Slimes){
 			i->update(time_game, window, hero, map);
-		}  */
+		} */
 
 		/* for(auto i : Skeletons){
 			i->update(time_game, window, hero, map);
@@ -115,7 +120,7 @@ void Game::run()
 
 		//slime1.update(time_game, window, hero, map);
 		//slime2.update(time_game, window, hero, map);
-		//skelet.update(time_game, window, hero, map);
+		skelet.update(time_game, window, hero, map);
 		
 		map.draw(window);
 		

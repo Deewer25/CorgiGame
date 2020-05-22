@@ -309,6 +309,20 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
 	    //собираем монеты
 	    if (map.TileMap[i][j] == 'G')
 	    {
+            gold++;
+		    map.TileMap[i][j] = ' ';
+	    }
+        //ПОБЕЕЕЕЕЕЕЕЕЕДА
+        if ((map.TileMap[i][j] == 'D' || map.TileMap[i][j] == 'd') && keys == 3)
+	    {
+            hit_points = 0;
+            //ГЕЙМ ОВЕР
+	    }
+        
+
+        if (map.TileMap[i][j] == 'k')
+	    {
+            keys++;
 		    map.TileMap[i][j] = ' ';
 	    }
 

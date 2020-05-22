@@ -38,13 +38,12 @@ public:
     void run();
     void pause();
 
-    std::vector<struct xy> skel_pos;
+    /* std::vector<struct xy> skel_pos;
     std::vector<struct xy> slimes_pos;
     
 
     std::list<Slime*> Slimes;
-    std::vector<Skeleton*> Skeletons;
-
+    std::vector<Skeleton*> Skeletons; */
 
     Game(const Game &) = delete;
 };
