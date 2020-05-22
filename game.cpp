@@ -39,15 +39,17 @@ void Game::background_motion(sf::Vector2f pos_camera)
 
 void Game::InitEnemy()
 {
-	for(int i = 0; i < 2; i++)
+	for(int i = 0; i < 4; i++)
 	{
 		Slime* slime_supp = new Slime("117687.png", 83, 80, slimes_pos[i].x, slimes_pos[i].y);
 		Slimes.push_back(slime_supp);
-	} 
+	}
 
-	 for(auto i : skel_pos){
-		Skeletons.push_back(new Skeleton("idle.png", 125, 200, i.x, i.y));
-	} 
+	for (int i = 0; i < 3; i++)
+	{
+		Skeleton* skeleton_supp = new Skeleton("idle.png", 125, 200, skel_pos[i].x, skel_pos[i].y);
+		Skeletons.push_back(skeleton_supp);
+	}
 }
 
 
@@ -70,7 +72,7 @@ void Game::run()
 	//InitEnemy();
 
 	Hero hero("Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 0, GROUND$);
-	Skeleton skelet("idle.png", 125, 200, 3080, 1120);
+	//Skeleton skelet("idle.png", 125, 200, 900, GROUND$);
 	//Slime slime1("117687.png", 83, 80, 2660, 2030);
 	//Slime slime2("117687.png", 83, 80, 1000, GROUND$);
 	
@@ -111,6 +113,8 @@ void Game::run()
 			i->update(time_game, window, hero, map);
 		}  
 
+
+		
 		for(auto i : Skeletons){
 			i->update(time_game, window, hero, map);
 		}
@@ -118,7 +122,7 @@ void Game::run()
 
 		//slime1.update(time_game, window, hero, map);
 		//slime2.update(time_game, window, hero, map);
-		skelet.update(time_game, window, hero, map);
+		//skelet.update(time_game, window, hero, map);
 		
 		map.draw(window);
 		

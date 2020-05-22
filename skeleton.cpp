@@ -88,7 +88,7 @@ int Skeleton::IsHeroNear(Hero& hero){
     float disty = hero.pos_obj.y - pos_obj.y;
 
     float Radius = sqrt(pow(distx, 2.0) + pow(disty, 2.0));
-    std::cout << Radius << "\n";
+    //std::cout << Radius << "\n";
     if (Radius < 1400){
         if (distx > 0){
             return RIGHT;
