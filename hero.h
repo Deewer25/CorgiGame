@@ -39,11 +39,13 @@ public:
 
     bool ON_GROUND;
     bool ON_INVINCIBLE;
+    bool FIRST_GOTHIT;
 
     sf::Texture texture_hearts; //stdmap ; texture manager use??
     sf::Sprite hearts_sprite;
 
     const sf::Time COOLDOWN_INVINCIBLE;
+    const sf::Time COOLDOWN_GOTHIT;
     sf::Time recent_click;
     sf::Time first_click;
     sf::Time current_summary_time;

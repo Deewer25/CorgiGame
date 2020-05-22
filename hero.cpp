@@ -10,7 +10,9 @@ Hero::Hero(const std::string name_file,
     previous_direction(RIGHT),
     ON_GROUND(true),
     COOLDOWN_INVINCIBLE(sf::seconds(3.0)),
+    COOLDOWN_GOTHIT(sf::seconds(3.0)),
     hit_points(3),
+    FIRST_GOTHIT(false),
     hearts_sprite(sf::Sprite()),
     texture_hearts(sf::Texture())
 {
@@ -73,6 +75,7 @@ void Hero::draw(sf::RenderWindow &window)
         break;
     case LEFT:
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), 0, -SIZE_PICT$ * 551, SIZE_PICT$ * 509));
+        //this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (615 * int(currentFrame) + 615), 3878, SIZE_PICT$ * 615, SIZE_PICT$ * 530));
         break;
     case JUMP_UP_LEFT:
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), SIZE_PICT$ * 509, -SIZE_PICT$ * 551, SIZE_PICT$ * 530));
@@ -111,7 +114,7 @@ void Hero::draw(sf::RenderWindow &window)
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame)), SIZE_PICT$ * 2053, SIZE_PICT$ * 1460, SIZE_PICT$ * 2053));
         break;
     case GAME_OVER:
-        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), 0, -SIZE_PICT$ * 551, SIZE_PICT$ * 509));
+        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (615 * int(currentFrame) + 615), SIZE_PICT$ * 3878, SIZE_PICT$ * 615, SIZE_PICT$ * 530));
         break;
     default:
         break;
@@ -149,6 +152,9 @@ void Hero::update(float time, Map& map)
 {
     if (this->hit_points <= 0)
     {
+        currentFrame += 0.002 * time;
+        if (currentFrame > 8) //TODO: fix this + spritesheet
+            currentFrame -= 8;
         this->current_direction = GAME_OVER;
         return;
     }
@@ -252,19 +258,40 @@ void Hero::update(float time, Map& map)
             this->current_direction = STAY_RIGHT;
         }
     }
-
-    if(this->hit_points < this->hit_points_previous)
+    if (this->hit_points < this->hit_points_previous || 
+        ((this->previous_direction_2 == GOT_HIT_RIGHT) || 
+        (this->previous_direction_2 == GOT_HIT_LEFT)))
     {
-        if(this->current_direction == RIGHT)
+        if (this->hit_points < this->hit_points_previous)
         {
-            this->current_direction = GOT_HIT_RIGHT;
+            if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
+            {
+                this->hit_points = this->hit_points_previous;
+                if(this->FIRST_GOTHIT)
+                {
+                    this->FIRST_GOTHIT = false;
+                }
+            }
+            else
+            {
+                this->clock.restart();
+                this->FIRST_GOTHIT = true;
+            }
         }
-        else
+
+        if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
         {
-            this->current_direction = GOT_HIT_LEFT;
+            if (this->current_direction < 8)
+            {
+                this->current_direction = GOT_HIT_LEFT;
+            }
+            else
+            {
+                this->current_direction = GOT_HIT_RIGHT;
+            }
         }
-        this->hit_points_previous = this->hit_points;
     }
+    this->hit_points_previous = this->hit_points;
 
     // ДОБАВИТЬ ПРОВЕРКУ ХП + ИЗМЕНИТЬ СПРАЙТ ЛЯ ЭТГО
 
