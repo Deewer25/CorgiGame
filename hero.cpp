@@ -123,28 +123,6 @@ void Hero::draw(sf::RenderWindow &window)
 
     switch(this->hit_points)
     {
-<<<<<<< HEAD
-        case 0:
-            break;
-        case 1:
-            hearts_sprite.setPosition(view.getCenter().x - 650, view.getCenter().y - 330);
-            window.draw(hearts_sprite);
-            break;
-        case 2:
-            hearts_sprite.setPosition(view.getCenter().x -650, view.getCenter().y - 330);
-            window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x - 650 + 70, view.getCenter().y - 330);
-            window.draw(hearts_sprite);
-            break;
-        case 3:
-            hearts_sprite.setPosition(view.getCenter().x - 650 + 70, view.getCenter().y - 330);
-            window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x - 650 + 70 + 70, view.getCenter().y - 330);
-            window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x - 650 + 70 + 70 + 70, view.getCenter().y - 330);
-            window.draw(hearts_sprite);
-            break;
-=======
     case 0:
         break;
     case 1:
@@ -165,7 +143,6 @@ void Hero::draw(sf::RenderWindow &window)
         hearts_sprite.setPosition(view.getCenter().x - 950 + 70 + 70, view.getCenter().y - 530);
         window.draw(hearts_sprite);
         break;
->>>>>>> BRNCH_WITH_DIE
     }
     window.draw(this->obj_sprite);
 }
@@ -288,20 +265,20 @@ void Hero::update(float time, Map& map)
     {
         if (this->hit_points < this->hit_points_previous)
         {
-            printf("ELAPSED: %lld, COOLD: %lld\n", this->clock.getElapsedTime().asMicroseconds(), this->COOLDOWN_GOTHIT.asMicroseconds());
+            //printf("ELAPSED: %lld, COOLD: %lld\n", this->clock.getElapsedTime().asMicroseconds(), this->COOLDOWN_GOTHIT.asMicroseconds());
             if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
             {
                 this->hit_points = this->hit_points_previous;
-                printf("FALSE\n");
+                //printf("FALSE\n");
             }
             else
             {
-                printf("RESET\n");
+                //printf("RESET\n");
                 this->clock.restart();
                 //this->FIRST_GOTHIT = true;
             }
         }
-        printf("CUR HIT %d PREV HIT %d\n", hit_points,  hit_points_previous);
+        //printf("CUR HIT %d PREV HIT %d\n", hit_points,  hit_points_previous);
 
         if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
         {

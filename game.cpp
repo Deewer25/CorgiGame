@@ -13,8 +13,8 @@ Game::Game() :
 {
 	Background.loadFromFile("imgonline-com-ua-Resize-PYauMusAo9I.png");
 	sprite_background.setTexture(Background);
-	slimes_pos = {{2660, 2030}, {2100, 420}, {11970, 420}, {8820, 1260}, {7070, 910}};
-	skel_pos = {{900, GROUND$}, {3570, 420}, {3150, 560}, {13230, 1610}};
+	slimes_pos = {{2660, 2030}, {2100, 420}, {8820, 1260}, {7070, 910}};
+	skel_pos = {{11970, 420}, {3150, 560}, {13230, 1610}};
 }
 
 
@@ -69,7 +69,7 @@ void Game::run()
 
 	//MENU.menu(window);
 	
-	//InitEnemy();
+	InitEnemy();
 
 	Hero hero("Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 0, GROUND$);
 	//Skeleton skelet("idle.png", 125, 200, 900, GROUND$);

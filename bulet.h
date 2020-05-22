@@ -31,6 +31,9 @@ public:
     bool ON_GROUND;
 
     virtual void draw(sf::RenderWindow &window);
+    
+    bool CheckWall(Map& map);
+    void CheckHero(Hero& hero);
 
     void motion();
 
