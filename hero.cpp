@@ -124,26 +124,26 @@ void Hero::draw(sf::RenderWindow &window)
 
     switch(this->hit_points)
     {
-        case 0:
-            break;
-        case 1:
-            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
-            window.draw(hearts_sprite);
-            break;
-        case 2:
-            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
-            window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x + 370, view.getCenter().y - 100);
-            window.draw(hearts_sprite);
-            break;
-        case 3:
-            hearts_sprite.setPosition(view.getCenter().x + 300, view.getCenter().y - 100);
-            window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x + 370, view.getCenter().y - 100);
-            window.draw(hearts_sprite);
-            hearts_sprite.setPosition(view.getCenter().x + 440, view.getCenter().y - 100);
-            window.draw(hearts_sprite);
-            break;
+    case 0:
+        break;
+    case 1:
+        hearts_sprite.setPosition(view.getCenter().x - 650 , view.getCenter().y - 330);
+        window.draw(hearts_sprite);
+        break;
+    case 2:
+        hearts_sprite.setPosition(view.getCenter().x - 650, view.getCenter().y - 330);
+        window.draw(hearts_sprite);
+        hearts_sprite.setPosition(view.getCenter().x - 650 + 70, view.getCenter().y - 330);
+        window.draw(hearts_sprite);
+        break;
+    case 3:
+        hearts_sprite.setPosition(view.getCenter().x - 650, view.getCenter().y - 330);
+        window.draw(hearts_sprite);
+        hearts_sprite.setPosition(view.getCenter().x - 650 + 70, view.getCenter().y - 330);
+        window.draw(hearts_sprite);
+        hearts_sprite.setPosition(view.getCenter().x - 650 + 70 + 70, view.getCenter().y - 330);
+        window.draw(hearts_sprite);
+        break;
     }
     window.draw(this->obj_sprite);
 }
@@ -153,8 +153,10 @@ void Hero::update(float time, Map& map)
     if (this->hit_points <= 0)
     {
         currentFrame += 0.002 * time;
+
         if (currentFrame > 8) //TODO: fix this + spritesheet
             currentFrame -= 8;
+
         this->current_direction = GAME_OVER;
         return;
     }
