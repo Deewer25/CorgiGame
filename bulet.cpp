@@ -53,7 +53,7 @@ void Bulet::motion()
 }
 
 
-void Bulet::update(float time, sf::RenderWindow &window, Map& map, Hero& hero){
+void Bulet::update(float time, sf::RenderWindow &window, Hero& hero, Map& map){
     this->pos_obj.x += this->velocity_obj.x * time;
 
     if (!this->ON_GROUND)

@@ -67,7 +67,7 @@ void Skeleton::update(float time, sf::RenderWindow &window, Hero& hero, Map& map
     fire(hero);
 
     if(bullets.size() != 0){
-        bullets.front().update(time, window, map, hero);
+        bullets.front().update(time, window, hero, map);
     }
 
     this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y);

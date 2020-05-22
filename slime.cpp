@@ -47,7 +47,7 @@ void Slime::motion(int a)
 
 }
 
-void Slime::update(float time, Map& map){
+void Slime::update(float time, sf::RenderWindow &window, Hero& hero, Map& map){
     this->pos_obj.x += this->velocity_obj.x * time;
     int a = CheckWall(map, this->velocity_obj.x, 0);
     motion(a);
@@ -62,14 +62,14 @@ void Slime::update(float time, Map& map){
     a = CheckWall(map, 0, this->velocity_obj.y);
     
     motion(a);
-
+    CheckHero(hero);
     currentFrame += 0.005 * time;
 
     if (currentFrame > 4)  //fix this + spritesheet @TODO 
         currentFrame -= 4;
 
     this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y);
-
+    draw(window);
     //this->velocity_obj.x = 0;
 }
 
@@ -93,11 +93,23 @@ int Slime::CheckWall(Map& map, float Dx, float Dy){
                     this->pos_obj.y = i * 70 - h;  
                     velocity_obj.y = 0; 
                     ON_GROUND = true; 
+                    if(map.TileMap[i][j] == '4'){
+                        return RIGHT;
+                    }
+                    if(map.TileMap[i][j] == '5'){
+                        return LEFT;
+                    }
                 }
                 if (Dy < 0)
                 {
                     this->pos_obj.y = i * 70 + 70;
                     velocity_obj.y = 0;
+                    if(map.TileMap[i][j] == '4'){
+                        return RIGHT;
+                    }
+                    if(map.TileMap[i][j] == '5'){
+                        return LEFT;
+                    }
                 }
 			    
 				if (Dx > 0){

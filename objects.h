@@ -7,6 +7,7 @@
 #include <list>
 #include "map.h"
 
+
 #define GROUND$ 2335
 
 #define SIZE_PICT$ 0.4
@@ -35,7 +36,7 @@ public:
            int pos_x, int pos_y);
 
     virtual void draw(sf::RenderWindow &window) = 0;
-
+    //virtual void update(float time, sf::RenderWindow &window, Hero& hero, Map& map);
     sf::FloatRect getRect();
 };
 
