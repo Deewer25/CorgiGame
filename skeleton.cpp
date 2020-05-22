@@ -67,7 +67,7 @@ void Skeleton::update(float time, sf::RenderWindow &window, Hero& hero, Map& map
     fire(hero);
 
     if(bullets.size() != 0){
-        bullets.front().update(time, window, map, hero);
+        bullets.front().update(time, window, hero, map);
     }
 
     this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y);
@@ -84,10 +84,13 @@ void Skeleton::update(float time, sf::RenderWindow &window, Hero& hero, Map& map
 }
 
 int Skeleton::IsHeroNear(Hero& hero){
-    float dist = hero.pos_obj.x - pos_obj.x;
+    float distx = hero.pos_obj.x - pos_obj.x;
+    float disty = hero.pos_obj.y - pos_obj.y;
 
-    if (abs(dist) < 1000){
-        if (dist > 0){
+    float Radius = sqrt(pow(distx, 2.0) + pow(disty, 2.0));
+    //std::cout << Radius << "\n";
+    if (Radius < 1400){
+        if (distx > 0){
             return RIGHT;
         }
         else{
@@ -107,7 +110,7 @@ void Skeleton::fire(Hero& hero){
     if (bullets.size() == 0 && IsHeroNear(hero)){
         float y_0, x_0;
         x_0 = hero.pos_obj.x - pos_obj.x;
-        y_0 = hero.pos_obj.y - pos_obj.y;
+        y_0 = -(hero.pos_obj.y - pos_obj.y);
 
         
         
@@ -118,16 +121,16 @@ void Skeleton::fire(Hero& hero){
         } else{
             my_bulet->velocity_obj.x = 0.4;
         }
-        my_bulet->velocity_obj.y = -0.3;
+        //my_bulet->velocity_obj.y = -0.3;
        
        
         //ТУТ ФИЗИКА
-        /* if(x_0 == 0){
+        if(x_0 == 0){
             my_bulet->velocity_obj.y = 0;
         } else{
-            my_bulet->velocity_obj.y = -(((y_0 * my_bulet->velocity_obj.x)/x_0) + ((my_bulet->acceleration_obj.y * x_0)/my_bulet->velocity_obj.x));
+            my_bulet->velocity_obj.y = -abs(((y_0 * my_bulet->velocity_obj.x * 2)/x_0) + ((my_bulet->acceleration_obj.y * x_0)/(2 * my_bulet->velocity_obj.x)));
             
-        } */
+        }
         //my_bulet.velocity_obj.y = ((y_0 * my_bulet.velocity_obj.x)/x_0) + ((my_bulet.acceleration_obj.y * x_0)/my_bulet.velocity_obj.x);
 
        

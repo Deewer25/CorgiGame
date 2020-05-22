@@ -37,7 +37,7 @@ public:
 
     Slime(const Slime &) = delete;
 
-    void update(float time, Map& map);
+    void update(float time, sf::RenderWindow &window, Hero& hero, Map& map);
 };
 
 #endif

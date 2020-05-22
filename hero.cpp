@@ -10,16 +10,18 @@ Hero::Hero(const std::string name_file,
     previous_direction(RIGHT),
     ON_GROUND(true),
     COOLDOWN_INVINCIBLE(sf::seconds(3.0)),
+    COOLDOWN_GOTHIT(sf::seconds(2.0)),
     hit_points(3),
+    FIRST_GOTHIT(false),
     hearts_sprite(sf::Sprite()),
     texture_hearts(sf::Texture())
 {
     acceleration_obj.y = 0.0005;
     texture_hearts.loadFromFile("tilemap1.png");
     hearts_sprite.setTexture(texture_hearts);
-    hearts_sprite.setTextureRect(sf::IntRect(420, 0, 70, 70));
+    hearts_sprite.setTextureRect(sf::IntRect(490, 490, 70, 70));
     hearts_sprite.setPosition(640-70, 0);
-    view.reset(sf::FloatRect(0, 0, 1280, 720));
+    view.reset(sf::FloatRect(0, 0, 1920, 1080));
 }
 
 void Hero::motion()
@@ -30,12 +32,12 @@ void Hero::motion()
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        this->velocity_obj.x = -0.2;
+        this->velocity_obj.x = -0.4;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        this->velocity_obj.x = 0.2;
+        this->velocity_obj.x = 0.4;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -87,7 +89,7 @@ void Hero::draw(sf::RenderWindow &window)
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), SIZE_PICT$ * 2902, -SIZE_PICT$ * 551, SIZE_PICT$ * 492));
         break;
     case INVINCIBLE_LEFT:
-        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame) + 1460), SIZE_PICT$ * 2053, -SIZE_PICT$ * 1460, SIZE_PICT$ * 2053));
+        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame)), SIZE_PICT$ * 2053, -SIZE_PICT$ * 1460, SIZE_PICT$ * 849));
         break;
     case JUMP_DOWN_RIGHT:
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * 551 * int(currentFrame), SIZE_PICT$ *(509 + 530), SIZE_PICT$ * 551, SIZE_PICT$ * 502));
@@ -108,10 +110,10 @@ void Hero::draw(sf::RenderWindow &window)
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), SIZE_PICT$ * 2902, SIZE_PICT$ * 551, SIZE_PICT$ * 492));
         break;
     case INVINCIBLE_RIGHT:
-        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame)), SIZE_PICT$ * 2053, SIZE_PICT$ * 1460, SIZE_PICT$ * 2053));
+        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame)), SIZE_PICT$ * 2053, SIZE_PICT$ * 1460, SIZE_PICT$ * 849));
         break;
     case GAME_OVER:
-        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), 0, -SIZE_PICT$ * 551, SIZE_PICT$ * 509));
+        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (615 * int(currentFrame) + 615), SIZE_PICT$ * 3878, SIZE_PICT$ * 615, SIZE_PICT$ * 530));
         break;
     default:
         break;
@@ -121,6 +123,7 @@ void Hero::draw(sf::RenderWindow &window)
 
     switch(this->hit_points)
     {
+<<<<<<< HEAD
         case 0:
             break;
         case 1:
@@ -141,14 +144,41 @@ void Hero::draw(sf::RenderWindow &window)
             hearts_sprite.setPosition(view.getCenter().x - 650 + 70 + 70 + 70, view.getCenter().y - 330);
             window.draw(hearts_sprite);
             break;
+=======
+    case 0:
+        break;
+    case 1:
+        hearts_sprite.setPosition(view.getCenter().x - 950 , view.getCenter().y - 530);
+        window.draw(hearts_sprite);
+        break;
+    case 2:
+        hearts_sprite.setPosition(view.getCenter().x - 950, view.getCenter().y - 530);
+        window.draw(hearts_sprite);
+        hearts_sprite.setPosition(view.getCenter().x - 950 + 70, view.getCenter().y - 530);
+        window.draw(hearts_sprite);
+        break;
+    case 3:
+        hearts_sprite.setPosition(view.getCenter().x - 950, view.getCenter().y - 530);
+        window.draw(hearts_sprite);
+        hearts_sprite.setPosition(view.getCenter().x - 950 + 70, view.getCenter().y - 530);
+        window.draw(hearts_sprite);
+        hearts_sprite.setPosition(view.getCenter().x - 950 + 70 + 70, view.getCenter().y - 530);
+        window.draw(hearts_sprite);
+        break;
+>>>>>>> BRNCH_WITH_DIE
     }
     window.draw(this->obj_sprite);
 }
 
 void Hero::update(float time, Map& map)
 {
-    if (this->hit_points <= 0)
+    if (this->hit_points < 0)
     {
+        currentFrame += 0.002 * time;
+
+        if (currentFrame > 8) //TODO: fix this + spritesheet
+            currentFrame -= 8;
+
         this->current_direction = GAME_OVER;
         return;
     }
@@ -252,19 +282,40 @@ void Hero::update(float time, Map& map)
             this->current_direction = STAY_RIGHT;
         }
     }
-
-    if(this->hit_points < this->hit_points_previous)
+    if (this->hit_points < this->hit_points_previous || 
+        ((this->previous_direction_2 == GOT_HIT_RIGHT) || 
+        (this->previous_direction_2 == GOT_HIT_LEFT)))
     {
-        if(this->current_direction == RIGHT)
+        if (this->hit_points < this->hit_points_previous)
         {
-            this->current_direction = GOT_HIT_RIGHT;
+            printf("ELAPSED: %lld, COOLD: %lld\n", this->clock.getElapsedTime().asMicroseconds(), this->COOLDOWN_GOTHIT.asMicroseconds());
+            if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
+            {
+                this->hit_points = this->hit_points_previous;
+                printf("FALSE\n");
+            }
+            else
+            {
+                printf("RESET\n");
+                this->clock.restart();
+                //this->FIRST_GOTHIT = true;
+            }
         }
-        else
+        printf("CUR HIT %d PREV HIT %d\n", hit_points,  hit_points_previous);
+
+        if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
         {
-            this->current_direction = GOT_HIT_LEFT;
+            if (this->current_direction < 8)
+            {
+                this->current_direction = GOT_HIT_LEFT;
+            }
+            else
+            {
+                this->current_direction = GOT_HIT_RIGHT;
+            }
         }
-        this->hit_points_previous = this->hit_points;
     }
+    this->hit_points_previous = this->hit_points;
 
     // ДОБАВИТЬ ПРОВЕРКУ ХП + ИЗМЕНИТЬ СПРАЙТ ЛЯ ЭТГО
 
@@ -283,7 +334,7 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
     {
         for (int j = x / 70; j < (x + w) / 70; j++)
         {
-            if (map.TileMap[i][j] == '1' || map.TileMap[i][j] == '2' || map.TileMap[i][j] == '3' || map.TileMap[i][j] == '4' || map.TileMap[i][j] == '5')
+            if (map.TileMap[i][j] == '1' || map.TileMap[i][j] == '2' || map.TileMap[i][j] == '3' || map.TileMap[i][j] == '4' || map.TileMap[i][j] == '5' || map.TileMap[i][j] == '$' || map.TileMap[i][j] =='*' || map.TileMap[i][j] == 'r' || map.TileMap[i][j] == 'i')
             {
                 if (Dy > 0)
                 {
@@ -304,7 +355,60 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
                 {
                     this->pos_obj.x = j * 70 + 70;
                 } // с левым краем карты
-            }     //else {ON_GROUND = false;}
+            } //else {ON_GROUND = false;}
+	    
+	    //собираем монеты
+	    if (map.TileMap[i][j] == 'G')
+	    {
+            gold++;
+		    map.TileMap[i][j] = ' ';
+	    }
+        //ПОБЕЕЕЕЕЕЕЕЕЕДА
+        if ((map.TileMap[i][j] == 'D' || map.TileMap[i][j] == 'd') && keys == 3)
+	    {
+            hit_points = 0;
+            //ГЕЙМ ОВЕР
+	    }
+        
+
+        if (map.TileMap[i][j] == 'k')
+	    {
+            keys++;
+		    map.TileMap[i][j] = ' ';
+	    }
+
+	    //дополнительные хп
+	    if (map.TileMap[i][j] == 'H')
+	    {
+		    if(this->hit_points < 3)
+		    {
+			    this->hit_points++;
+		    	map.TileMap[i][j] = ' ';
+		    }
+	    }
+	    
+	    //бонусные ячейки
+	    if (map.TileMap[i][j] == '$')
+	    {
+		    map.TileMap[i][j] = 'M';
+	    }
+	    if (map.TileMap[i][j] == '*')
+	    {
+		    map.TileMap[i][j] = '!';
+	    }
+            //попадает на осколки
+            if (map.TileMap[i][j] == '~')
+            {
+                this->hit_points--;
+        		this->velocity_obj.y = -0.35; 
+            }
+	    
+	    //попадает в лаву
+	    if (map.TileMap[i][j] == 'l')
+            {
+                this->hit_points--;
+            }
+
         }
     }
 }

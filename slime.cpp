@@ -12,7 +12,7 @@ Slime::Slime(const std::string name_file,
         ON_GROUND(true)
         {
             current_direction = RIGHT;
-            velocity_obj.x = 0.1;
+            velocity_obj.x = 0.2;
             acceleration_obj.y = 0.0005;
         }
 
@@ -20,6 +20,7 @@ Slime::Slime(const std::string name_file,
 
 void Slime::draw(sf::RenderWindow &window)
 {
+    this->obj_sprite.setScale(2.0, 2.0);
     if (this->current_direction == RIGHT)
         this->obj_sprite.setTextureRect(sf::IntRect(17, 23, 83, 80));
     if (this->current_direction == LEFT)
@@ -35,19 +36,19 @@ void Slime::motion(int a)
     {
     case LEFT:
         current_direction = LEFT;
-        velocity_obj.x = -0.1;
+        velocity_obj.x = -0.2;
         break;
 
     case RIGHT:
         current_direction = RIGHT;
-        velocity_obj.x = 0.1;
+        velocity_obj.x = 0.2;
         break;
     
     }
 
 }
 
-void Slime::update(float time, Map& map){
+void Slime::update(float time, sf::RenderWindow &window, Hero& hero, Map& map){
     this->pos_obj.x += this->velocity_obj.x * time;
     int a = CheckWall(map, this->velocity_obj.x, 0);
     motion(a);
@@ -62,14 +63,14 @@ void Slime::update(float time, Map& map){
     a = CheckWall(map, 0, this->velocity_obj.y);
     
     motion(a);
-
+    CheckHero(hero);
     currentFrame += 0.005 * time;
 
     if (currentFrame > 4)  //fix this + spritesheet @TODO 
         currentFrame -= 4;
 
-    this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y);
-
+    this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y-65);
+    draw(window);
     //this->velocity_obj.x = 0;
 }
 
@@ -93,11 +94,23 @@ int Slime::CheckWall(Map& map, float Dx, float Dy){
                     this->pos_obj.y = i * 70 - h;  
                     velocity_obj.y = 0; 
                     ON_GROUND = true; 
+                    if(map.TileMap[i][j] == '4'){
+                        return RIGHT;
+                    }
+                    if(map.TileMap[i][j] == '5'){
+                        return LEFT;
+                    }
                 }
                 if (Dy < 0)
                 {
                     this->pos_obj.y = i * 70 + 70;
                     velocity_obj.y = 0;
+                    if(map.TileMap[i][j] == '4'){
+                        return RIGHT;
+                    }
+                    if(map.TileMap[i][j] == '5'){
+                        return LEFT;
+                    }
                 }
 			    
 				if (Dx > 0){

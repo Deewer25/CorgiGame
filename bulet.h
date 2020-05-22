@@ -39,7 +39,7 @@ public:
               const float obj_size_y,
               int pos_x, int pos_y);
 
-    void update(float time, sf::RenderWindow &window, Map& map, Hero& hero);
+    void update(float time, sf::RenderWindow &window, Hero& hero, Map& map);
 };
 
 #endif

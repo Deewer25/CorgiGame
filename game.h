@@ -10,6 +10,11 @@
 
 class Game
 {
+private:
+
+void InitEnemy();
+void KillEnemy();
+
 public:
     sf::RenderWindow window;
     sf::Texture Background;
@@ -22,6 +27,13 @@ public:
     void background_motion(sf::Vector2f pos_camera);
     void run();
     void pause();
+
+    std::vector<sf::Vector2f> slimes_pos;
+    std::vector<sf::Vector2f> skel_pos;
+
+    std::vector<Slime*> Slimes;
+    std::vector<Skeleton*> Skeletons;
+
 
     Game(const Game &) = delete;
 };
