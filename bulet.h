@@ -45,7 +45,7 @@ public:
 
     //Bulet(const Bulet& that);
 
-    void update(float time, sf::RenderWindow &window, Map& map, Hero& hero);
+    void update(float time, sf::RenderWindow &window, Hero& hero, Map& map);
 };
 
 #endif

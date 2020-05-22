@@ -19,7 +19,7 @@ Hero::Hero(const std::string name_file,
     hearts_sprite.setTexture(texture_hearts);
     hearts_sprite.setTextureRect(sf::IntRect(490, 490, 70, 70));
     hearts_sprite.setPosition(640-70, 0);
-    view.reset(sf::FloatRect(0, 0, 1280, 720));
+    view.reset(sf::FloatRect(0, 0, 1920, 1080));
 }
 
 void Hero::motion()
@@ -30,12 +30,12 @@ void Hero::motion()
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        this->velocity_obj.x = -0.2;
+        this->velocity_obj.x = -0.4;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        this->velocity_obj.x = 0.2;
+        this->velocity_obj.x = 0.4;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -283,7 +283,7 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
     {
         for (int j = x / 70; j < (x + w) / 70; j++)
         {
-            if (map.TileMap[i][j] == '1' || map.TileMap[i][j] == '2' || map.TileMap[i][j] == '3' || map.TileMap[i][j] == '4' || map.TileMap[i][j] == '5' || map.TileMap[i][j] == '$' || map.TileMap[i][j] =='*')
+            if (map.TileMap[i][j] == '1' || map.TileMap[i][j] == '2' || map.TileMap[i][j] == '3' || map.TileMap[i][j] == '4' || map.TileMap[i][j] == '5' || map.TileMap[i][j] == '$' || map.TileMap[i][j] =='*' || map.TileMap[i][j] == 'r' || map.TileMap[i][j] == 'i')
             {
                 if (Dy > 0)
                 {
@@ -318,7 +318,7 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
 		    if(this->hit_points < 3)
 		    {
 			    this->hit_points++;
-		    	    map.TileMap[i][j] = ' ';
+		    	map.TileMap[i][j] = ' ';
 		    }
 	    }
 	    
@@ -334,14 +334,14 @@ void Hero::CheckMap(Map &map, float Dx, float Dy) //ф-ция взаимодей
             //попадает на осколки
             if (map.TileMap[i][j] == '~')
             {
-                        this->hit_points--;
+                this->hit_points--;
         		this->velocity_obj.y = -0.35; 
             }
 	    
 	    //попадает в лаву
 	    if (map.TileMap[i][j] == 'l')
             {
-                        this->hit_points--;
+                this->hit_points--;
             }
 
         }

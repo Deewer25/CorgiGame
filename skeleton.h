@@ -35,7 +35,7 @@ public:
 
     //Вааажно подумать над этим!!!
 
-    virtual void draw(sf::RenderWindow &window/*,  const sf::Vector2f& hero_pos */);
+    virtual void draw(sf::RenderWindow &window);
     bool CheckWall(Map& map, float Dx, float Dy);
 
     void CheckHero(Hero& hero);

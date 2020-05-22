@@ -61,7 +61,7 @@ public:
 
     void CheckMap(Map &map, float Dx, float Dy); //ф-ция взаимодействия с картой
 
-    Hero(const Hero&) = delete;
+    //Hero(const Hero&) = delete;
     sf::Vector2f get_pos_camera();
 
     void update(float time, Map &map);
