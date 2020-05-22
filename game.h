@@ -12,18 +12,8 @@ class Game
 {
 private:
 
-//std::vector<sf::Vector2f> slimes_pos = {{2660, 2030}, {2100, 420}};
-//std::vector<sf::Vector2f> skel_pos = {{900, GROUND$}};
-struct xy{
-    int x;
-    int y;
-};
-
 void InitEnemy();
 void KillEnemy();
-
-    
-
 
 public:
     sf::RenderWindow window;
@@ -38,12 +28,12 @@ public:
     void run();
     void pause();
 
-    /* std::vector<struct xy> skel_pos;
-    std::vector<struct xy> slimes_pos;
-    
+    std::vector<sf::Vector2f> slimes_pos;
+    std::vector<sf::Vector2f> skel_pos;
 
-    std::list<Slime*> Slimes;
-    std::vector<Skeleton*> Skeletons; */
+    std::vector<Slime*> Slimes;
+    std::vector<Skeleton*> Skeletons;
+
 
     Game(const Game &) = delete;
 };

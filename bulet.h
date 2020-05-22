@@ -32,18 +32,12 @@ public:
 
     virtual void draw(sf::RenderWindow &window);
 
-    bool CheckWall(Map& map);
-
     void motion();
 
-    void CheckHero(Hero& hero);
-
-    Bulet(const std::string name_file,
-         const float obj_size_x,
-         const float obj_size_y,
-         int pos_x, int pos_y);
-
-    //Bulet(const Bulet& that);
+        Bulet(const std::string name_file,
+              const float obj_size_x,
+              const float obj_size_y,
+              int pos_x, int pos_y);
 
     void update(float time, sf::RenderWindow &window, Hero& hero, Map& map);
 };
