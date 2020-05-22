@@ -50,6 +50,7 @@ void Game::InitEnemy()
 	} 
 }
 
+
 void Game::KillEnemy(){
 	/* for(auto i : Slimes){
 		delete i;
@@ -66,10 +67,10 @@ void Game::run()
 
 	//MENU.menu(window);
 	
-	InitEnemy();
+	//InitEnemy();
 
 	Hero hero("Corgi.png", SIZE_PICT$ * 551.0, SIZE_PICT$ * 509.0, 0, GROUND$);
-	//Skeleton skelet("idle.png", 125, 200, 900, GROUND$);
+	Skeleton skelet("idle.png", 125, 200, 3080, 1120);
 	//Slime slime1("117687.png", 83, 80, 2660, 2030);
 	//Slime slime2("117687.png", 83, 80, 1000, GROUND$);
 	
@@ -91,7 +92,7 @@ void Game::run()
 		window.clear();
 		window.pollEvent(event_game);
 		window.draw(sprite_background);
-		
+
 		//if (event_game.type == sf::Event::Closed)
 		//window.close();
 		// The escape key was pressed
@@ -117,7 +118,7 @@ void Game::run()
 
 		//slime1.update(time_game, window, hero, map);
 		//slime2.update(time_game, window, hero, map);
-		//skelet.update(time_game, window, hero, map);
+		skelet.update(time_game, window, hero, map);
 		
 		map.draw(window);
 		
