@@ -20,6 +20,7 @@ Slime::Slime(const std::string name_file,
 
 void Slime::draw(sf::RenderWindow &window)
 {
+    this->obj_sprite.setScale(2.0, 2.0);
     if (this->current_direction == RIGHT)
         this->obj_sprite.setTextureRect(sf::IntRect(17, 23, 83, 80));
     if (this->current_direction == LEFT)
@@ -68,7 +69,7 @@ void Slime::update(float time, sf::RenderWindow &window, Hero& hero, Map& map){
     if (currentFrame > 4)  //fix this + spritesheet @TODO 
         currentFrame -= 4;
 
-    this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y);
+    this->obj_sprite.setPosition(this->pos_obj.x, this->pos_obj.y-65);
     draw(window);
     //this->velocity_obj.x = 0;
 }

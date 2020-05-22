@@ -10,7 +10,7 @@ Hero::Hero(const std::string name_file,
     previous_direction(RIGHT),
     ON_GROUND(true),
     COOLDOWN_INVINCIBLE(sf::seconds(3.0)),
-    COOLDOWN_GOTHIT(sf::seconds(3.0)),
+    COOLDOWN_GOTHIT(sf::seconds(2.0)),
     hit_points(3),
     FIRST_GOTHIT(false),
     hearts_sprite(sf::Sprite()),
@@ -75,7 +75,6 @@ void Hero::draw(sf::RenderWindow &window)
         break;
     case LEFT:
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), 0, -SIZE_PICT$ * 551, SIZE_PICT$ * 509));
-        //this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (615 * int(currentFrame) + 615), 3878, SIZE_PICT$ * 615, SIZE_PICT$ * 530));
         break;
     case JUMP_UP_LEFT:
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), SIZE_PICT$ * 509, -SIZE_PICT$ * 551, SIZE_PICT$ * 530));
@@ -90,7 +89,7 @@ void Hero::draw(sf::RenderWindow &window)
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), SIZE_PICT$ * 2902, -SIZE_PICT$ * 551, SIZE_PICT$ * 492));
         break;
     case INVINCIBLE_LEFT:
-        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame) + 1460), SIZE_PICT$ * 2053, -SIZE_PICT$ * 1460, SIZE_PICT$ * 2053));
+        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame)), SIZE_PICT$ * 2053, -SIZE_PICT$ * 1460, SIZE_PICT$ * 849));
         break;
     case JUMP_DOWN_RIGHT:
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * 551 * int(currentFrame), SIZE_PICT$ *(509 + 530), SIZE_PICT$ * 551, SIZE_PICT$ * 502));
@@ -111,7 +110,7 @@ void Hero::draw(sf::RenderWindow &window)
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (551 * int(currentFrame) + 551), SIZE_PICT$ * 2902, SIZE_PICT$ * 551, SIZE_PICT$ * 492));
         break;
     case INVINCIBLE_RIGHT:
-        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame)), SIZE_PICT$ * 2053, SIZE_PICT$ * 1460, SIZE_PICT$ * 2053));
+        this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (1460 * int(currentFrame)), SIZE_PICT$ * 2053, SIZE_PICT$ * 1460, SIZE_PICT$ * 849));
         break;
     case GAME_OVER:
         this->obj_sprite.setTextureRect(sf::IntRect(SIZE_PICT$ * (615 * int(currentFrame) + 615), SIZE_PICT$ * 3878, SIZE_PICT$ * 615, SIZE_PICT$ * 530));
@@ -127,21 +126,21 @@ void Hero::draw(sf::RenderWindow &window)
     case 0:
         break;
     case 1:
-        hearts_sprite.setPosition(view.getCenter().x - 650 , view.getCenter().y - 330);
+        hearts_sprite.setPosition(view.getCenter().x - 950 , view.getCenter().y - 530);
         window.draw(hearts_sprite);
         break;
     case 2:
-        hearts_sprite.setPosition(view.getCenter().x - 650, view.getCenter().y - 330);
+        hearts_sprite.setPosition(view.getCenter().x - 950, view.getCenter().y - 530);
         window.draw(hearts_sprite);
-        hearts_sprite.setPosition(view.getCenter().x - 650 + 70, view.getCenter().y - 330);
+        hearts_sprite.setPosition(view.getCenter().x - 950 + 70, view.getCenter().y - 530);
         window.draw(hearts_sprite);
         break;
     case 3:
-        hearts_sprite.setPosition(view.getCenter().x - 650, view.getCenter().y - 330);
+        hearts_sprite.setPosition(view.getCenter().x - 950, view.getCenter().y - 530);
         window.draw(hearts_sprite);
-        hearts_sprite.setPosition(view.getCenter().x - 650 + 70, view.getCenter().y - 330);
+        hearts_sprite.setPosition(view.getCenter().x - 950 + 70, view.getCenter().y - 530);
         window.draw(hearts_sprite);
-        hearts_sprite.setPosition(view.getCenter().x - 650 + 70 + 70, view.getCenter().y - 330);
+        hearts_sprite.setPosition(view.getCenter().x - 950 + 70 + 70, view.getCenter().y - 530);
         window.draw(hearts_sprite);
         break;
     }
@@ -150,7 +149,7 @@ void Hero::draw(sf::RenderWindow &window)
 
 void Hero::update(float time, Map& map)
 {
-    if (this->hit_points <= 0)
+    if (this->hit_points < 0)
     {
         currentFrame += 0.002 * time;
 
@@ -266,20 +265,20 @@ void Hero::update(float time, Map& map)
     {
         if (this->hit_points < this->hit_points_previous)
         {
+            printf("ELAPSED: %lld, COOLD: %lld\n", this->clock.getElapsedTime().asMicroseconds(), this->COOLDOWN_GOTHIT.asMicroseconds());
             if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
             {
                 this->hit_points = this->hit_points_previous;
-                if(this->FIRST_GOTHIT)
-                {
-                    this->FIRST_GOTHIT = false;
-                }
+                printf("FALSE\n");
             }
             else
             {
+                printf("RESET\n");
                 this->clock.restart();
-                this->FIRST_GOTHIT = true;
+                //this->FIRST_GOTHIT = true;
             }
         }
+        printf("CUR HIT %d PREV HIT %d\n", hit_points,  hit_points_previous);
 
         if ((this->clock.getElapsedTime().asMicroseconds() < this->COOLDOWN_GOTHIT.asMicroseconds()))
         {

@@ -11,10 +11,10 @@ Game::Game() :
                event_game(sf::Event()),
                clock_game(sf::Clock())
 {
-    Background.loadFromFile("background1.png");
-    sprite_background.setTexture(Background);
-	slimes_pos = {{2660, 2030}, {2100, 420}};
-	skel_pos = {{900, GROUND$}};
+	Background.loadFromFile("imgonline-com-ua-Resize-PYauMusAo9I.png");
+	sprite_background.setTexture(Background);
+	slimes_pos = {{2660, 2030}, {2100, 420}, {11970, 420}, {8820, 1260}, {7070, 910}};
+	skel_pos = {{900, GROUND$}, {3570, 420}, {3150, 560}, {13230, 1610}};
 }
 
 
@@ -32,20 +32,22 @@ void Game::pause()
 
 void Game::background_motion(sf::Vector2f pos_camera)
 {
-	this->sprite_background.setPosition(pos_camera.x - 650, pos_camera.y - 350);
+	this->sprite_background.setPosition(pos_camera.x - 950, pos_camera.y - 550);
 }
 
 
 
 void Game::InitEnemy()
 {
-	/* for(int i = 0; i < 2; i++){
-		Slimes.push_back(new Slime("117687.png", 83, 80, slimes_pos[i].x, slimes_pos[i].y));
-	} */
+	for(int i = 0; i < 2; i++)
+	{
+		Slime* slime_supp = new Slime("117687.png", 83, 80, slimes_pos[i].x, slimes_pos[i].y);
+		Slimes.push_back(slime_supp);
+	} 
 
-	/* for(auto i : skel_pos){
+	 for(auto i : skel_pos){
 		Skeletons.push_back(new Skeleton("idle.png", 125, 200, i.x, i.y));
-	} */
+	} 
 }
 
 void Game::KillEnemy(){
@@ -104,13 +106,13 @@ void Game::run()
 
 		hero.update(time_game, map);
 
-		/* for(auto i : Slimes){
+		for(auto i : Slimes){
 			i->update(time_game, window, hero, map);
-		}  */
+		}  
 
-		/* for(auto i : Skeletons){
+		for(auto i : Skeletons){
 			i->update(time_game, window, hero, map);
-		} */
+		}
 
 
 		//slime1.update(time_game, window, hero, map);
