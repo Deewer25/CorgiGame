@@ -107,6 +107,7 @@ void Game::run()
 		background_motion(hero.get_pos_camera());
 
 
+
 		hero.update(time_game, map);
 
 		for(auto i : Slimes){

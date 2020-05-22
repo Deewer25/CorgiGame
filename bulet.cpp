@@ -12,8 +12,7 @@ Bulet::Bulet(const std::string name_file,
         previous_direction(RIGHT),
         ON_GROUND(true)
         {
-            
-                        
+                                    
             life = true;
             current_direction = RIGHT;
             acceleration_obj = {0, 0.0005};
@@ -97,16 +96,20 @@ bool Bulet::CheckWall(Map& map){
 
 
 
-		for (int i = y / 70; i < (y + h) / 70; i++)//проходимся по элементам карты
-		for (int j = x / 70; j < (x + w) / 70; j++)
-		{
-			if (map.TileMap[i][j] != ' '|| map.TileMap[i][j] == 'G')
-			{
+		for (int i = y / 70; i < (y + h) / 70; i++){//проходимся по элементам карты
+            if(i < 0){
                 life = false;
+                break;
             }
+		    for (int j = x / 70; j < (x + w) / 70; j++)
+		    {
+			    if (map.TileMap[i][j] != ' '|| map.TileMap[i][j] == 'G')
+			    {
+                    life = false;
+                }
 
+            }
         }
-
 ///asasd
 
 
