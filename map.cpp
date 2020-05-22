@@ -14,7 +14,7 @@ Map::Map()
 
 void Map::draw(sf::RenderWindow &window){
 	for (int i = 0; i < HEIGHT_MAP; i++)
-		for (int j = 0; j < WIDTH_MAP; j++)
+		for (int j = 0; j < TileMap[i].getSize(); j++)
 		{
 			if(TileMap[i][j] ==' ') sprite_map.setTextureRect(IntRect(0,0,70,70));
                         if(TileMap[i][j] =='0') sprite_map.setTextureRect(IntRect(0,70,70,70));
